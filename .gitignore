@@ -4,4 +4,11 @@ vendor/*
 !.gitignore
 !.htaccess
 !web.config
-app/config/config.local.neon
+!/vendor/composer/
+!/vendor/bin/
+!/vendor/o5/
+!/vendor/autoload.php
+!/vendor/latte/
+!/vendor/nette/
+!/vendor/symfony/
+!/vendor/tracy/

@@ -1,0 +1,9 @@
+parameters:
+
+
+database:
+	dsn: 'mysql:host=old.slspo.sk;dbname=vcelariEvidencia'
+	user:    'cujan'
+	password:   'cujan'
+	options:
+		lazy: yes
