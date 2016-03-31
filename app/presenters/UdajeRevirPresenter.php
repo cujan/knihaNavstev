@@ -19,7 +19,9 @@ class UdajeRevirPresenter extends BasePresenter {
     
     public function renderDefault()
 	{
-		$this->template->udajeRevir = $this->database->table('revirUdaje');
+		$this->template->post = $this->database->table('revirUdaje');
+                $revirUdaje = $this->database->table('revirUdaje');
+                dump($revirUdaje);
 	}
     
 }
