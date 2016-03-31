@@ -12,3 +12,4 @@ vendor/*
 !/vendor/nette/
 !/vendor/symfony/
 !/vendor/tracy/
+!/vendor/
