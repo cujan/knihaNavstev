@@ -1,8 +1,35 @@
 {* Latte template *}
 
 {block content}
-<table class="table table-hover">
+<table class="table">
     
-</table>
-{$post->nazov}
+    
+ {foreach $posts as $post}
+   
+<tr>
+    <td><b>Názov</b></td><td>   {$post->nazov}</td>
+</tr>
+<tr>
+    <td><b>Výmera</b></td><td>   {$post->vymera}</td>
+</tr>
+<tr>
+    <td><b>Poľovná oblasť</b></td><td>   {$post->polovnaOblast}</td>
+</tr>
+<tr>
+    <td><b>Chovateľský celok</b></td><td>   {$post->chovatelskyCelok}</td>
+</tr>
+<tr>
+    <td><b>Príslušnosť OLÚ</b></td><td>   {$post->prislusnostOlu}</td>
+</tr>
+<tr>
+    <td><b>Príslušnosť OPK</b></td><td>   {$post->prislusnostOpk}</td>
+</tr>
+<tr>
+    <td><a n:href="UdajeRevir:edit $post->id" class="btn btn-default active">Edituj</a></td>
+</tr>
+
+ {/foreach}
+ 
+ </table>
+ 
 {/block}
