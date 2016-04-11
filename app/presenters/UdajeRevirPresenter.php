@@ -2,9 +2,11 @@
 
 namespace App\Presenters;
 
-use Nette;
+
 use App\Model;
 use Nette\Application\UI\Form;
+use Nette,  
+    Nette\Utils\Html;
 
 
 class UdajeRevirPresenter extends BasePresenter {
@@ -23,16 +25,24 @@ class UdajeRevirPresenter extends BasePresenter {
 		$this->template->posts = $this->database->table('revirUdaje');
                 
 	}
+        public function renderEdit() {
+            
+        }
     
-    public function renderEdit($id){
-        $udaj = $this->database->table('revirUdaje')->get($id);
+    public function actionEdit($id){
+        $udaj = $this->database->table('revirUdaje')->fetchAll($id);
+        
+        dump($udaj);
         if (!$udaj) {
         $this->error('Údaje neboli nájdené');
-        $this['RevirEditujForm']->setDefaults($udaj->toArray);
+        $this['revirEditujForm']->setDefaults($udaj);
+        
+       
+        
     }
     }
 
-                protected function createComponentRevirEditujForm() {
+      protected function createComponentRevirEditujForm() {
         $form = (new \App\Forms\RevirEditujFormFactory())->create();
         
         return $form;
