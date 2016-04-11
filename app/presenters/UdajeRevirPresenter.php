@@ -22,7 +22,7 @@ class UdajeRevirPresenter extends BasePresenter {
     
     public function renderDefault()
 	{
-		$this->template->posts = $this->database->table('revirUdaje');
+	    $this->template->posts = $this->database->table('revirUdaje');
                 
 	}
         public function renderEdit() {
@@ -30,26 +30,18 @@ class UdajeRevirPresenter extends BasePresenter {
         }
     
     public function actionEdit($id){
-        $udaj = $this->database->table('revirUdaje')->fetchAll($id);
-        
-        dump($udaj);
+        $udaj = $this->database->table('revirUdaje')->get($id);
         if (!$udaj) {
         $this->error('Údaje neboli nájdené');
-        $this['revirEditujForm']->setDefaults($udaj);
-        
-       
-        
-    }
+        }
+	$this['revirEditujForm']->setDefaults($udaj);
     }
 
       protected function createComponentRevirEditujForm() {
         $form = (new \App\Forms\RevirEditujFormFactory())->create();
-        
         return $form;
-        
-        
-        
-        
         }
+	
+	
     
 }

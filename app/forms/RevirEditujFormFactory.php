@@ -7,9 +7,8 @@
  */
 
 namespace App\Forms;
-use Nette;
 use Nette\Application\UI\Form;
-use Nette\Security\User;
+
 
 /**
  * Description of revirEdituj
@@ -31,27 +30,21 @@ class RevirEditujFormFactory  {
                 $form->addText('chovatelskyCelok', 'Chovateľský celok:');
                 $form->addText('prislusnostOlu', 'Príslušnosť OLÚ:');
                 $form->addText('prislusnostOpk', 'Príslušnosť OPK:');
-
-		
-
-		$form->addSubmit('send', 'Ulož');
-
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
+		$form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
 		return $form;
-                
-                
-                
-                
-               
-                
-                
                 
 	}
 
 
-	public function formSucceeded(Form $form, $values)
+	public function formSucceeded($form)
 	{
-            dump('super');
+            dump('uloz');
+	}
+	
+	public function formCancel() {
+	    $this->redirect('UdajeRevir:');
+	    
 	}
 
 }
