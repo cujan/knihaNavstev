@@ -30,21 +30,9 @@ class RevirEditujFormFactory  {
                 $form->addText('chovatelskyCelok', 'Chovateľský celok:');
                 $form->addText('prislusnostOlu', 'Príslušnosť OLÚ:');
                 $form->addText('prislusnostOpk', 'Príslušnosť OPK:');
-		$form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
-		$form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
+		
 		return $form;
                 
-	}
-
-
-	public function formSucceeded($form)
-	{
-            dump('uloz');
-	}
-	
-	public function formCancel() {
-	    $this->redirect('UdajeRevir:');
-	    
 	}
 
 }

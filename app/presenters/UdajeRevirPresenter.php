@@ -39,8 +39,28 @@ class UdajeRevirPresenter extends BasePresenter {
 
       protected function createComponentRevirEditujForm() {
         $form = (new \App\Forms\RevirEditujFormFactory())->create();
+	$form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
+	$form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
         return $form;
         }
+	
+	public function formSucceeded($form)
+	{
+	    $values =	$form->getForm()->getValues();
+	    $postId = $this->getParameter('id');
+	    if($postId){
+		$post = $this->database->table('revirUdaje')->get($postId);
+		$post->update($values);
+	    }
+	    
+            $this->flashMessage('Údaje boli úspešne uložené','success');
+	    $this->redirect('default');
+	}
+	
+	public function formCancel() {
+	    $this->redirect('default');
+	    
+	}
 	
 	
     
