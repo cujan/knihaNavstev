@@ -11,5 +11,10 @@ use App\Model;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-
+     public function actionDefault()
+    {
+        if (!$this->getUser()->isLoggedIn()) {
+        $this->redirect('Sign:in');
+        }
+    }
 }
