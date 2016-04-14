@@ -37,9 +37,11 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	public function authenticate(array $credentials)
 	{
 		list($username, $password) = $credentials;
-
+                dump($credentials);
+                dump($username);
+                dump($password);
 		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
-
+                
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
 
