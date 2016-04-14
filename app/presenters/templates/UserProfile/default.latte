@@ -1,0 +1,15 @@
+{* Latte template *}
+
+{block content}
+<h3>Profil používateľa</h3>
+<table class="table">
+    
+	<tr><td>id</td><td>{$record->id}</td></tr>
+	<tr><td>Meno používateľa</td><td>{$record->username}</td></tr>
+	<tr><td>Meno</td><td>{$record->meno}</td></tr>
+	<tr><td>Priezvisko</td><td>{$record->priezvisko}</td></tr>
+    <tr>
+    <td><a n:href="UserProfile:edit $record->id" class="btn btn-default active">Edituj</a></td>
+    
+</tr>
+</table>
