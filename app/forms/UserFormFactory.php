@@ -17,7 +17,9 @@ class UserFormFactory {
 	$form->addText('username', 'Užívateľské meno');
 	$form->addText('priezvisko', 'Priezvisko');
 	$form->addText('meno', 'Meno');
-	$form->addSelect('role', 'Pozícia', array('admin','user'));
+        $form->addText('email', 'Email');
+        $form->addText('telefon', 'Telefón');
+	
 	return $form;
     }
 }

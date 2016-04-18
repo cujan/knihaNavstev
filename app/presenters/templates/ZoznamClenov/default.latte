@@ -1,0 +1,9 @@
+{* Latte template *}
+
+{block content}
+zoznam clenov
+<table class="table table-striped">
+    {foreach $records as $record}
+        <tr><td>{$record -> priezvisko}</td></tr>    
+    {/foreach}
+</table>

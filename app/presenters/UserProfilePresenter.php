@@ -29,7 +29,10 @@ class UserProfilePresenter extends BasePresenter {
         }
 	
 	protected function createComponentUserForm() {
-	    $form = (new \App\Forms\UserFormFactory()) -> create();
+	    $role = $this->database->table('role')->fetchPairs('id','nazov');
+            
+            $form = (new \App\Forms\UserFormFactory()) -> create();
+            $form->addSelect('roleId', 'Pozícia',$role);
 	    $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
 	    $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
 	    return $form;
