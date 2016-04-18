@@ -8,6 +8,7 @@
 	<tr><td>Meno používateľa</td><td>{$record->username}</td></tr>
 	<tr><td>Meno</td><td>{$record->meno}</td></tr>
 	<tr><td>Priezvisko</td><td>{$record->priezvisko}</td></tr>
+	<tr><td>Pozícia</td><td>{$record->ref('role','roleId')->nazov}</td></tr>
     <tr>
     <td><a n:href="UserProfile:edit $record->id" class="btn btn-default active">Edituj</a></td>
     
