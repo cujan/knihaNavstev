@@ -27,7 +27,12 @@ class ZoznamClenovPresenter extends BasePresenter {
     }
     public function renderDefault(){
 		
-	$this->template->records = $this->database->table('users');
+        
+        $idSignUser = $this->user->getId();
+        $signUserZdruzenieId = $this->database->table('users')->get($idSignUser)->zdruzenieId;
+        $this->template->records = $this->database->table('users')->where('zdruzenieId', $signUserZdruzenieId);
+       
+       
 	
     }
 }

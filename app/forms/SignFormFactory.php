@@ -51,7 +51,7 @@ class SignFormFactory extends Nette\Object
 		} else {
 			$this->user->setExpiration('20 minutes', TRUE);
 		}
-                dump($values);
+                
 		try {
 			$this->user->login($values->username, $values->password);
                         
