@@ -9,7 +9,7 @@ use Nette,
     Nette\Utils\Html;
 
 
-class UdajeRevirPresenter extends BasePresenter {
+class ZdruzeniePresenter extends BasePresenter {
     
     /** @var Nette\Database\Context */
     private $database;
@@ -22,7 +22,9 @@ class UdajeRevirPresenter extends BasePresenter {
     
     public function renderDefault()
 	{
-	    $this->template->posts = $this->database->table('revirUdaje');
+	
+	dump($this->user->getIdentity());
+	    $this->template->posts = $this->database->table('zdruzenie');
                 
 	}
         public function renderEdit() {
@@ -30,7 +32,7 @@ class UdajeRevirPresenter extends BasePresenter {
         }
     
     public function actionEdit($id){
-        $udaj = $this->database->table('revirUdaje')->get($id);
+        $udaj = $this->database->table('zdruzenie')->get($id);
         if (!$udaj) {
         $this->error('Údaje neboli nájdené');
         }
@@ -49,7 +51,7 @@ class UdajeRevirPresenter extends BasePresenter {
 	    $values =	$form->getForm()->getValues();
 	    $postId = $this->getParameter('id');
 	    if($postId){
-		$post = $this->database->table('revirUdaje')->get($postId);
+		$post = $this->database->table('zdruzenie')->get($postId);
 		$post->update($values);
 	    }
 	    
