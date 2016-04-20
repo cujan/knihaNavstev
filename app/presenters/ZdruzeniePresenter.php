@@ -23,8 +23,7 @@ class ZdruzeniePresenter extends BasePresenter {
     public function renderDefault()
 	{
 	
-	dump($this->user->getIdentity());
-	    $this->template->posts = $this->database->table('zdruzenie');
+	    $this->template->posts = $this->database->table('zdruzenie')->where('id', $this->user->getIdentity()->zdruzenieId);
                 
 	}
         public function renderEdit() {

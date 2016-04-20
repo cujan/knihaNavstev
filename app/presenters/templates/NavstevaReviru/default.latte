@@ -1,0 +1,27 @@
+{* Latte template *}
+
+{block content}
+<h3>Všetky návštevy</h3>
+
+<table class="table table-striped">
+    {foreach $records as $record}
+	<tr>
+	    <th>Meno a priezvisko</th>
+	    <th>Dátum zápisu</th>
+	    <th>Dátum návštevy</th>
+	    <th>Účel návštevy</th>
+	    <th>Lokalita</th>
+	    <th>Príchod</th>
+	    <th>Odchod</th>
+	</tr>
+	<tr>
+	    <td>{$record->ref('users','usersId')->priezvisko}</td>
+	    <td>{$record->datumReal|date:'%d.%m.%Y'}</td>
+	    <td>{$record->datumNavsteva|date:'%d.%m.%Y'}</td>
+	    <td>{$record->ref('ucelNavstevy','ucelId')->nazov}</td>
+	    <td>{$record->ref('lokalita','lokalitaId')->nazov}</td>
+	    <td>{$record->prichodCas|date:'%H:%I'}</td>
+	    <td>{$record->odchodCas|date:'%H:%I'}</td>
+	</tr>
+    {/foreach}
+</table>

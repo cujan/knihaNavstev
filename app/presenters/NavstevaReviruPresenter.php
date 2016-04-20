@@ -5,19 +5,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 namespace App\Presenters;
 
-use Nette;
-use App\Model;
 
+use App\Model;
+use Nette\Application\UI\Form;
+use Nette,  
+    Nette\Utils\Html;
 /**
- * Description of ZoznamClenovPresenter
+ * Description of NavstevaReviruPresenter
  *
- * @author Holub
+ * @author Holub Ján
  */
-class ZoznamClenovPresenter extends BasePresenter {
-    
+class NavstevaReviruPresenter extends BasePresenter {
+    //put your code here
      /** @var Nette\Database\Context */
     private $database;
 
@@ -28,7 +29,7 @@ class ZoznamClenovPresenter extends BasePresenter {
     public function renderDefault(){
 		
         
-	$this->template->records = $this->database->table('users')->where('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
+	$this->template->records = $this->database->table('navstevaReviru')->where('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
        
        
 	
