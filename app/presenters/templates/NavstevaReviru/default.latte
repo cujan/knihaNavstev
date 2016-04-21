@@ -1,13 +1,10 @@
 {* Latte template *}
 
 {block content}
-<h3>Aktuálne v revíry</h3>
-
-<h3>Všetky návštevy</h3>
-
+<a n:href="add" class="btn btn-primary btn-lg active" role="button">Pridaj návštevu</a>
+<h3>Dnes v revíry</h3>
 <table class="table table-striped">
-    {foreach $records as $record}
-	<tr>
+    <tr>
 	    <th>Meno a priezvisko</th>
 	    <th>Dátum zápisu</th>
 	    <th>Dátum návštevy</th>
@@ -16,6 +13,32 @@
 	    <th>Príchod</th>
 	    <th>Odchod</th>
 	</tr>
+    {foreach $dnesneNavstevy as $dnesnaNavsteva}
+	<tr>
+	    <td>{$dnesnaNavsteva->ref('users','usersId')->priezvisko}</td>
+	    <td>{$dnesnaNavsteva->datumReal|date:'%d.%m.%Y'}</td>
+	    <td>{$dnesnaNavsteva->datumNavsteva|date:'%d.%m.%Y'}</td>
+	    <td>{$dnesnaNavsteva->ref('ucelNavstevy','ucelId')->nazov}</td>
+	    <td>{$dnesnaNavsteva->ref('lokalita','lokalitaId')->nazov}</td>
+	    <td>{$dnesnaNavsteva->prichodCas|date:'%H:%I'}</td>
+	    <td>{$dnesnaNavsteva->odchodCas|date:'%H:%I'}</td>
+	</tr>
+    {/foreach}
+</table>
+<h3>Všetky návštevy</h3>
+
+<table class="table table-striped">
+    <tr>
+	    <th>Meno a priezvisko</th>
+	    <th>Dátum zápisu</th>
+	    <th>Dátum návštevy</th>
+	    <th>Účel návštevy</th>
+	    <th>Lokalita</th>
+	    <th>Príchod</th>
+	    <th>Odchod</th>
+	</tr>
+    {foreach $records as $record}
+	
 	<tr>
 	    <td>{$record->ref('users','usersId')->priezvisko}</td>
 	    <td>{$record->datumReal|date:'%d.%m.%Y'}</td>

@@ -30,8 +30,15 @@ class NavstevaReviruPresenter extends BasePresenter {
 		
         
 	$this->template->records = $this->database->table('navstevaReviru')->where('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
-       
+        
+        $this->template->dnesneNavstevy = $this->database->table('navstevaReviru')->where('zdruzenieId = ? AND datumNavsteva = ?', $this->user->getIdentity()->zdruzenieId, date("Y:m:d"));
        
 	
+    }
+    
+    protected function createComponentPridajNavstevuForm() {
+        $form =(new \App\Forms\PridajNavstevuFormFactory())->create();
+        return $form;
+        
     }
 }
