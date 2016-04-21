@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\DI;
@@ -145,6 +145,16 @@ class ContainerBuilder extends Nette\Object
 
 		}
 		$this->aliases[$alias] = $service;
+	}
+
+
+	/**
+	 * Removes the specified alias.
+	 * @return void
+	 */
+	public function removeAlias($alias)
+	{
+		unset($this->aliases[$alias]);
 	}
 
 
@@ -361,7 +371,7 @@ class ContainerBuilder extends Nette\Object
 			if (!$returnType) {
 				throw new ServiceCreationException("Method $interface::$methodName() used in service '$name' has no @return annotation.");
 			} elseif (!class_exists($returnType)) {
-				throw new ServiceCreationException("Please check a @return annotation of the $interface::$methodName() method used in service '$name'. Class '$returnType' cannot be found.");
+				throw new ServiceCreationException("Check a @return annotation of the $interface::$methodName() method used in service '$name', class '$returnType' cannot be found.");
 			}
 			$def->setClass($returnType);
 		}
@@ -482,7 +492,7 @@ class ContainerBuilder extends Nette\Object
 
 	private function checkCase($class)
 	{
-		if (class_exists($class) && ($rc = new ReflectionClass($class)) && $class !== $rc->getName()) {
+		if ((class_exists($class) || interface_exists($class)) && ($rc = new ReflectionClass($class)) && $class !== $rc->getName()) {
 			throw new ServiceCreationException("Case mismatch on class name '$class', correct name is '{$rc->getName()}'.");
 		}
 	}
@@ -770,7 +780,7 @@ class ContainerBuilder extends Nette\Object
 			} elseif (substr($val, 0, 2) === '@@') {
 				$val = substr($val, 1);
 
-			} elseif (substr($val, 0, 1) === '@') {
+			} elseif (substr($val, 0, 1) === '@' && strlen($val) > 1) {
 				$pair = explode('::', $val, 2);
 				$name = $that->getServiceName($pair[0]);
 				if (isset($pair[1]) && preg_match('#^[A-Z][A-Z0-9_]*\z#', $pair[1], $m)) {

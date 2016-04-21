@@ -18,7 +18,6 @@ class PridajNavstevuFormFactory {
     public function create(){
 	$form = new Form;
 	$form->setRenderer(new Bs3FormRenderer());
-	$form->addText('datumReal', 'Dátum zápisu')->setDisabled()->setValue(date('d.m.Y'));
 	
 	return $form;
     }

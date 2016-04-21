@@ -18,6 +18,9 @@ application:
 session:
 	expiration: 14 days
 
+latte:
+    macros:
+        - Nextras\Forms\Bridges\Latte\Macros\BS3InputMacros
 
 services:
 	- App\Model\UserManager

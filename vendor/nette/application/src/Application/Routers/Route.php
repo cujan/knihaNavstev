@@ -115,14 +115,14 @@ class Route extends Nette\Object implements Application\IRouter
 	public function __construct($mask, $metadata = array(), $flags = 0)
 	{
 		if (is_string($metadata)) {
-			$a = strrpos($metadata, ':');
+			$a = strrpos($tmp = $metadata, ':');
 			if (!$a) {
 				throw new Nette\InvalidArgumentException("Second argument must be array or string in format Presenter:action, '$metadata' given.");
 			}
-			$metadata = array(
-				self::PRESENTER_KEY => substr($metadata, 0, $a),
-				'action' => $a === strlen($metadata) - 1 ? NULL : substr($metadata, $a + 1),
-			);
+			$metadata = array(self::PRESENTER_KEY => substr($tmp, 0, $a));
+			if ($a < strlen($tmp) - 1) {
+				$metadata['action'] = substr($tmp, $a + 1);
+			}
 		} elseif ($metadata instanceof \Closure || $metadata instanceof Nette\Callback) {
 			$metadata = array(
 				self::PRESENTER_KEY => 'Nette:Micro',
@@ -238,16 +238,12 @@ class Route extends Nette\Object implements Application\IRouter
 		} elseif (!is_string($params[self::PRESENTER_KEY])) {
 			return NULL;
 		}
-		if (isset($this->metadata[self::MODULE_KEY])) {
-			if (!isset($params[self::MODULE_KEY])) {
-				throw new Nette\InvalidStateException('Missing module in route definition.');
-			}
-			$presenter = $params[self::MODULE_KEY] . ':' . $params[self::PRESENTER_KEY];
-			unset($params[self::MODULE_KEY], $params[self::PRESENTER_KEY]);
+		$presenter = $params[self::PRESENTER_KEY];
+		unset($params[self::PRESENTER_KEY]);
 
-		} else {
-			$presenter = $params[self::PRESENTER_KEY];
-			unset($params[self::PRESENTER_KEY]);
+		if (isset($this->metadata[self::MODULE_KEY])) {
+			$presenter = (isset($params[self::MODULE_KEY]) ? $params[self::MODULE_KEY] . ':' : '') . $presenter;
+			unset($params[self::MODULE_KEY]);
 		}
 
 		return new Application\Request(
@@ -292,7 +288,7 @@ class Route extends Nette\Object implements Application\IRouter
 				$a = strrpos($presenter, ':');
 			}
 			if ($a === FALSE) {
-				$params[self::MODULE_KEY] = '';
+				$params[self::MODULE_KEY] = isset($module[self::VALUE]) ? '' : NULL;
 			} else {
 				$params[self::MODULE_KEY] = substr($presenter, 0, $a);
 				$params[self::PRESENTER_KEY] = substr($presenter, $a + 1);

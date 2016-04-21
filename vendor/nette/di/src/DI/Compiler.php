@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\DI;
@@ -155,9 +155,6 @@ class Compiler extends Nette\Object
 	/** @internal */
 	public function processExtensions()
 	{
-		$last = $this->getExtensions('Nette\DI\Extensions\InjectExtension');
-		$this->extensions = array_merge(array_diff_key($this->extensions, $last), $last);
-
 		$this->config = Helpers::expand(array_diff_key($this->config, self::$reserved), $this->builder->parameters)
 			+ array_intersect_key($this->config, self::$reserved);
 
@@ -165,6 +162,9 @@ class Compiler extends Nette\Object
 			$extension->setConfig(isset($this->config[$name]) ? $this->config[$name] : array());
 			$extension->loadConfiguration();
 		}
+
+		$last = $this->getExtensions('Nette\DI\Extensions\InjectExtension');
+		$this->extensions = array_merge(array_diff_key($this->extensions, $last), $last);
 
 		$extensions = array_diff_key($this->extensions, $first);
 		foreach (array_intersect_key($extensions, $this->config) as $name => $extension) {
@@ -182,9 +182,12 @@ class Compiler extends Nette\Object
 			$extra = implode("', '", array_keys($extra));
 			throw new Nette\DeprecatedException("Extensions '$extra' were added while container was being compiled.");
 
-		} elseif ($extra = array_diff_key($this->config, self::$reserved, $this->extensions)) {
-			$extra = implode("', '", array_keys($extra));
-			throw new Nette\InvalidStateException("Found sections '$extra' in configuration, but corresponding extensions are missing.");
+		} elseif ($extra = key(array_diff_key($this->config, self::$reserved, $this->extensions))) {
+			$hint = Nette\Utils\ObjectMixin::getSuggestion(array_keys(self::$reserved + $this->extensions), $extra);
+			throw new Nette\InvalidStateException(
+				"Found section '$extra' in configuration, but corresponding extension is missing"
+				. ($hint ? ", did you mean '$hint'?" : '.')
+			);
 		}
 	}
 
@@ -200,11 +203,16 @@ class Compiler extends Nette\Object
 	public function generateCode($className, $parentName = NULL)
 	{
 		$this->builder->prepareClassList();
+		$state = serialize($this->builder->getDefinitions());
 
 		foreach ($this->extensions as $extension) {
 			$extension->beforeCompile();
 			$rc = new \ReflectionClass($extension);
 			$this->dependencies[] = $rc->getFileName();
+			if ($state !== serialize($this->builder->getDefinitions())) {
+				$this->builder->prepareClassList();
+				$state = serialize($this->builder->getDefinitions());
+			}
 		}
 
 		$classes = $this->builder->generateClasses($className, $parentName);

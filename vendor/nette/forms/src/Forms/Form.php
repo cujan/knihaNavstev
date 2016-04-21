@@ -22,6 +22,7 @@ class Form extends Container implements Nette\Utils\IHtmlString
 	const EQUAL = ':equal',
 		IS_IN = self::EQUAL,
 		NOT_EQUAL = ':notEqual',
+		IS_NOT_IN = self::NOT_EQUAL,
 		FILLED = ':filled',
 		BLANK = ':blank',
 		REQUIRED = self::FILLED,
@@ -112,13 +113,14 @@ class Form extends Container implements Nette\Utils\IHtmlString
 	 */
 	public function __construct($name = NULL)
 	{
+		parent::__construct();
 		if ($name !== NULL) {
 			$this->getElementPrototype()->id = 'frm-' . $name;
 			$tracker = new Controls\HiddenField($name);
 			$tracker->setOmitted();
 			$this[self::TRACKER_ID] = $tracker;
+			$this->setParent(NULL, $name);
 		}
-		parent::__construct(NULL, $name);
 	}
 
 
@@ -594,7 +596,10 @@ class Form extends Container implements Nette\Utils\IHtmlString
 		try {
 			return $this->getRenderer()->render($this);
 
+		} catch (\Throwable $e) {
 		} catch (\Exception $e) {
+		}
+		if (isset($e)) {
 			if (func_num_args()) {
 				throw $e;
 			}

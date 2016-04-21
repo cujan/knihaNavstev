@@ -12,6 +12,8 @@ use App\Model;
 use Nette\Application\UI\Form;
 use Nette,  
     Nette\Utils\Html;
+use Nette\Forms\Container;
+use Nextras\Forms\Controls;
 /**
  * Description of NavstevaReviruPresenter
  *
@@ -25,6 +27,8 @@ class NavstevaReviruPresenter extends BasePresenter {
     public function __construct(Nette\Database\Context $database)
     {
         $this->database = $database;
+	
+	
     }
     public function renderDefault(){
 		
@@ -38,6 +42,10 @@ class NavstevaReviruPresenter extends BasePresenter {
     
     protected function createComponentPridajNavstevuForm() {
         $form =(new \App\Forms\PridajNavstevuFormFactory())->create();
+	$form->addHidden('usersId', $this->user->getId());
+	$form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
+	$form->addText('datumReal', 'Dátum zápisu')->setDisabled()->setValue(date('d.m.Y'));
+	$form->addDateTimePicker('datumNavsteva','Dátum návštevy');
         return $form;
         
     }

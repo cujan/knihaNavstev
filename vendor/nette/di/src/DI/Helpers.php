@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\DI;
@@ -104,6 +104,10 @@ class Helpers
 					if ($parameter->allowsNull()) {
 						$optCount++;
 					} elseif (class_exists($class) || interface_exists($class)) {
+						$rc = new \ReflectionClass($class);
+						if ($class !== ($hint = $rc->getName())) {
+							throw new ServiceCreationException("Service of type {$class} needed by $methodName not found, did you mean $hint?");
+						}
 						throw new ServiceCreationException("Service of type {$class} needed by $methodName not found. Did you register it in configuration file?");
 					} else {
 						throw new ServiceCreationException("Class {$class} needed by $methodName not found. Check type hint and 'use' statements.");

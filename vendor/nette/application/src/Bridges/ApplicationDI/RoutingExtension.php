@@ -16,7 +16,7 @@ use Nette;
 class RoutingExtension extends Nette\DI\CompilerExtension
 {
 	public $defaults = array(
-		'debugger' => TRUE,
+		'debugger' => NULL,
 		'routes' => array(), // of [mask => action]
 		'cache' => FALSE,
 	);
@@ -27,6 +27,7 @@ class RoutingExtension extends Nette\DI\CompilerExtension
 
 	public function __construct($debugMode = FALSE)
 	{
+		$this->defaults['debugger'] = interface_exists('Tracy\IBarPanel');
 		$this->debugMode = $debugMode;
 	}
 
@@ -68,6 +69,8 @@ class RoutingExtension extends Nette\DI\CompilerExtension
 			$method = $class->getMethod(Nette\DI\Container::getMethodName($this->prefix('router')));
 			try {
 				$router = serialize(eval($method->getBody()));
+			} catch (\Throwable $e) {
+				throw new Nette\DI\ServiceCreationException('Unable to cache router due to error: ' . $e->getMessage(), 0, $e);
 			} catch (\Exception $e) {
 				throw new Nette\DI\ServiceCreationException('Unable to cache router due to error: ' . $e->getMessage(), 0, $e);
 			}

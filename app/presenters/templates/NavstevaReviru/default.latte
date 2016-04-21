@@ -5,8 +5,8 @@
 <h3>Dnes v revíry</h3>
 <table class="table table-striped">
     <tr>
-	    <th>Meno a priezvisko</th>
 	    <th>Dátum zápisu</th>
+	    <th>Meno a priezvisko</th>
 	    <th>Dátum návštevy</th>
 	    <th>Účel návštevy</th>
 	    <th>Lokalita</th>
@@ -15,8 +15,8 @@
 	</tr>
     {foreach $dnesneNavstevy as $dnesnaNavsteva}
 	<tr>
-	    <td>{$dnesnaNavsteva->ref('users','usersId')->priezvisko}</td>
 	    <td>{$dnesnaNavsteva->datumReal|date:'%d.%m.%Y'}</td>
+	    <td>{$dnesnaNavsteva->ref('users','usersId')->priezvisko}</td>
 	    <td>{$dnesnaNavsteva->datumNavsteva|date:'%d.%m.%Y'}</td>
 	    <td>{$dnesnaNavsteva->ref('ucelNavstevy','ucelId')->nazov}</td>
 	    <td>{$dnesnaNavsteva->ref('lokalita','lokalitaId')->nazov}</td>
@@ -29,8 +29,8 @@
 
 <table class="table table-striped">
     <tr>
+	   <th>Dátum zápisu</th>
 	    <th>Meno a priezvisko</th>
-	    <th>Dátum zápisu</th>
 	    <th>Dátum návštevy</th>
 	    <th>Účel návštevy</th>
 	    <th>Lokalita</th>
@@ -40,8 +40,8 @@
     {foreach $records as $record}
 	
 	<tr>
-	    <td>{$record->ref('users','usersId')->priezvisko}</td>
 	    <td>{$record->datumReal|date:'%d.%m.%Y'}</td>
+	    <td>{$record->ref('users','usersId')->priezvisko}</td>
 	    <td>{$record->datumNavsteva|date:'%d.%m.%Y'}</td>
 	    <td>{$record->ref('ucelNavstevy','ucelId')->nazov}</td>
 	    <td>{$record->ref('lokalita','lokalitaId')->nazov}</td>

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * This file is part of the Nette Framework (http://nette.org)
- * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
+ * This file is part of the Nette Framework (https://nette.org)
+ * Copyright (c) 2004 David Grudl (https://davidgrudl.com)
  */
 
 namespace Nette\DI;
@@ -103,6 +103,26 @@ class Container extends Nette\Object
 			$this->registry[$name] = $this->createService($name);
 		}
 		return $this->registry[$name];
+	}
+
+
+	/**
+	 * Gets the service type by name.
+	 * @param  string
+	 * @return string
+	 * @throws MissingServiceException
+	 */
+	public function getServiceType($name)
+	{
+		if (isset($this->meta[self::ALIASES][$name])) {
+			return $this->getServiceType($this->meta[self::ALIASES][$name]);
+
+		} elseif (isset($this->meta[self::SERVICES][$name])) {
+			return $this->meta[self::SERVICES][$name];
+
+		} else {
+			throw new MissingServiceException("Service '$name' not found.");
+		}
 	}
 
 

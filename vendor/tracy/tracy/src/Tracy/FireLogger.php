@@ -53,7 +53,7 @@ class FireLogger implements ILogger
 			$item['template'] = array_shift($args);
 		}
 
-		if (isset($args[0]) && $args[0] instanceof \Exception) {
+		if (isset($args[0]) && ($args[0] instanceof \Exception || $args[0] instanceof \Throwable)) {
 			$e = array_shift($args);
 			$trace = $e->getTrace();
 			if (isset($trace[0]['class']) && $trace[0]['class'] === 'Tracy\Debugger'
@@ -155,7 +155,7 @@ class FireLogger implements ILogger
 				$list[] = $var;
 				$res = array("\x00" => '(object) ' . Helpers::getClass($var));
 				foreach ($arr as $k => & $v) {
-					if ($k[0] === "\x00") {
+					if (isset($k[0]) && $k[0] === "\x00") {
 						$k = substr($k, strrpos($k, "\x00") + 1);
 					}
 					$res[$this->jsonDump($k)] = $this->jsonDump($v, $level + 1);
