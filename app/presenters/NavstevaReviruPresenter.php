@@ -41,12 +41,40 @@ class NavstevaReviruPresenter extends BasePresenter {
     }
     
     protected function createComponentPridajNavstevuForm() {
-        $form =(new \App\Forms\PridajNavstevuFormFactory())->create();
+        $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
+	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
+	
+	$form =(new \App\Forms\PridajNavstevuFormFactory())->create();
 	$form->addHidden('usersId', $this->user->getId());
 	$form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
-	$form->addText('datumReal', 'Dátum zápisu')->setDisabled()->setValue(date('d.m.Y'));
-	$form->addDateTimePicker('datumNavsteva','Dátum návštevy');
+	$form->addHidden('datumReal');
+	$form->addDatePicker('datumNavsteva','Dátum návštevy')->setValue(date('d.m.Y'));
+	$form->addSelect('ucelId','Účel',$ucel);
+	$form->addSelect('lokalitaId','Lokalita',$lokalita);
+	
+	 $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
+	 $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
         return $form;
         
     }
+    
+    public function formSucceeded($form)
+	{
+	    $values =	$form->getForm()->getValues();
+	    $postId = $this->getParameter('id');
+	    //if($postId){
+		//$post = $this->database->table('navstevaReviru')->get($postId);
+		//$post->update($values);
+	    //}
+	    
+            //$this->flashMessage('Údaje boli úspešne uložené','success');
+	    //$this->redirect('default');
+	    
+	    dump($values);
+	}
+    
+    public function formCancel() {
+	    $this->redirect('default');
+	    
+	}
 }
