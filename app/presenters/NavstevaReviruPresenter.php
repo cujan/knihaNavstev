@@ -14,6 +14,8 @@ use Nette,
     Nette\Utils\Html;
 use Nette\Forms\Container;
 use Nextras\Forms\Controls;
+use Nette\Utils\DateTime;
+
 /**
  * Description of NavstevaReviruPresenter
  *
@@ -44,16 +46,29 @@ class NavstevaReviruPresenter extends BasePresenter {
         $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
 	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
 	$casy = array('00:00','00:30');
-	$form =(new \App\Forms\PridajNavstevuFormFactory())->create();
+	
+        
+        $begin = new DateTime(date('d.m.Y'));
+        $end = new DateTime(date('d.m.Y')); // tento čas už v poli nebude
+        $end = $end->modify( '+1 day' ); 
+
+        $interval = new \DateInterval('PT30M');
+        $daterange = new \DatePeriod($begin, $interval, $end);
+
+        $intervals = [];
+        foreach($daterange as $date) {
+        $intervals[] = $date->format("H:i");
+        }
+
+        $form =(new \App\Forms\PridajNavstevuFormFactory())->create();
 	$form->addHidden('usersId', $this->user->getId());
 	$form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
 	$form->addHidden('datumReal')->setValue(date('Y-m-d'));
 	$form->addDatePicker('datumNavsteva','Dátum návštevy')->setValue(date('d.m.Y'));
 	$form->addSelect('ucelId','Účel',$ucel);
 	$form->addSelect('lokalitaId','Lokalita',$lokalita);
-	$form->addText('prichodCas','Čas príchodu do revíru')->setValue(date('H:i', time()));
-	$form->addText('odchodCas')->setValue(date('H:i', time()));
-	$form->addSelect('cas', 'cas', $casy);
+	$form->addSelect('prichodCas', 'čas príchodu do revíru', $intervals);
+        $form->addSelect('odchodCas', 'čas odchodu z revíru', $intervals);
 	
 	 $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
 	 $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
@@ -65,7 +80,7 @@ class NavstevaReviruPresenter extends BasePresenter {
 	{
 	    $values =	$form->getForm()->getValues();
 	    $postId = $this->getParameter('id');
-	    if($postId){
+	    /**if($postId){
 		$post = $this->database->table('navstevaReviru')->get($postId);
 		$post->update($values);
 	    }  else {
@@ -75,7 +90,7 @@ class NavstevaReviruPresenter extends BasePresenter {
 	    
             $this->flashMessage('Údaje boli úspešne uložené','success');
 	    $this->redirect('default');
-	    
+	    */
 	    dump($values);
 	}
     
