@@ -67,8 +67,8 @@ class NavstevaReviruPresenter extends BasePresenter {
 	$form->addDatePicker('datumNavsteva','Dátum návštevy')->setValue(date('d.m.Y'));
 	$form->addSelect('ucelId','Účel',$ucel);
 	$form->addSelect('lokalitaId','Lokalita',$lokalita);
-	$form->addSelect('prichodCas', 'čas príchodu do revíru', $intervals);
-        $form->addSelect('odchodCas', 'čas odchodu z revíru', $intervals);
+	$form->addSelect('prichodCas', 'čas príchodu do revíru')->setItems($intervals,FALSE);
+        $form->addSelect('odchodCas', 'čas odchodu z revíru')->setItems($intervals,FALSE);
 	
 	 $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
 	 $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
@@ -80,7 +80,7 @@ class NavstevaReviruPresenter extends BasePresenter {
 	{
 	    $values =	$form->getForm()->getValues();
 	    $postId = $this->getParameter('id');
-	    /**if($postId){
+	    if($postId){
 		$post = $this->database->table('navstevaReviru')->get($postId);
 		$post->update($values);
 	    }  else {
@@ -90,8 +90,8 @@ class NavstevaReviruPresenter extends BasePresenter {
 	    
             $this->flashMessage('Údaje boli úspešne uložené','success');
 	    $this->redirect('default');
-	    */
-	    dump($values);
+	    
+	    
 	}
     
     public function formCancel() {

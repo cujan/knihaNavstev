@@ -1,0 +1,54 @@
+{* Latte template *}
+
+{block content}
+<a n:href="add" class="btn btn-primary btn-lg active" role="button">Pridaj návštevu</a>
+<h3>Dnešné úlovky</h3>
+<table class="table table-striped">
+    <tr>
+	<th>Dátum ulovenia</th>
+	<th>Meno a priezvisko</th>
+	<th>Lokalita</th>
+	<th>Druh zveri</th>
+	<th>Počet kusov</th>
+	<th>Spôsob ulovenia</th>
+	<th>Číslo značky</th>
+	<th>Čas ulovenia</th>
+    </tr>
+    {foreach $dnesneUlovky as $ulovok}
+    <tr>
+	<td>{$ulovok->datumUlovenia|date:'%d.%m.%Y'}</td>
+	<td>{$ulovok->ref('users','usersId')->priezvisko}</td>
+	<td>{$ulovok->ref('lokalita','lokalitaId')->nazov}</td>
+	<td>{$ulovok->ref('druhZveri','druhZveriId')->nazov}</td>
+	<td>{$ulovok->pocetKs}</td>
+	<td>{$ulovok->ref('sposobUlovenia','sposobId')->nazov}</td>
+	<td>{$ulovok->cisloZnacky}</td>
+	<td>{$ulovok->casUlovenia|date:'%H:%I'}</td>
+    </tr>
+    {/foreach}
+</table>
+<h3> Všetky úlovky </h3>
+<table class="table table-striped">
+    <tr>
+	<th>Dátum ulovenia</th>
+	<th>Meno a priezvisko</th>
+	<th>Lokalita</th>
+	<th>Druh zveri</th>
+	<th>Počet kusov</th>
+	<th>Spôsob ulovenia</th>
+	<th>Číslo značky</th>
+	<th>Čas ulovenia</th>
+    </tr>
+    {foreach $vsetkyUlovky as $ulovok}
+    <tr>
+	<td>{$ulovok->datumUlovenia|date:'%d.%m.%Y'}</td>
+	<td>{$ulovok->ref('users','usersId')->priezvisko}</td>
+	<td>{$ulovok->ref('lokalita','lokalitaId')->nazov}</td>
+	<td>{$ulovok->ref('druhZveri','druhZveriId')->nazov}</td>
+	<td>{$ulovok->pocetKs}</td>
+	<td>{$ulovok->ref('sposobUlovenia','sposobId')->nazov}</td>
+	<td>{$ulovok->cisloZnacky}</td>
+	<td>{$ulovok->casUlovenia|date:'%H:%I'}</td>
+    </tr>
+    {/foreach}
+</table>
