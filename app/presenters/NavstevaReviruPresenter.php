@@ -43,14 +43,17 @@ class NavstevaReviruPresenter extends BasePresenter {
     protected function createComponentPridajNavstevuForm() {
         $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
 	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
-	
+	$casy = array('00:00','00:30');
 	$form =(new \App\Forms\PridajNavstevuFormFactory())->create();
 	$form->addHidden('usersId', $this->user->getId());
 	$form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
-	$form->addHidden('datumReal');
+	$form->addHidden('datumReal')->setValue(date('Y-m-d'));
 	$form->addDatePicker('datumNavsteva','Dátum návštevy')->setValue(date('d.m.Y'));
 	$form->addSelect('ucelId','Účel',$ucel);
 	$form->addSelect('lokalitaId','Lokalita',$lokalita);
+	$form->addText('prichodCas','Čas príchodu do revíru')->setValue(date('H:i', time()));
+	$form->addText('odchodCas')->setValue(date('H:i', time()));
+	$form->addSelect('cas', 'cas', $casy);
 	
 	 $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
 	 $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
@@ -62,13 +65,16 @@ class NavstevaReviruPresenter extends BasePresenter {
 	{
 	    $values =	$form->getForm()->getValues();
 	    $postId = $this->getParameter('id');
-	    //if($postId){
-		//$post = $this->database->table('navstevaReviru')->get($postId);
-		//$post->update($values);
-	    //}
+	    if($postId){
+		$post = $this->database->table('navstevaReviru')->get($postId);
+		$post->update($values);
+	    }  else {
+		$post = $this->database->table('navstevaReviru')->insert($values);
+		
+	    }
 	    
-            //$this->flashMessage('Údaje boli úspešne uložené','success');
-	    //$this->redirect('default');
+            $this->flashMessage('Údaje boli úspešne uložené','success');
+	    $this->redirect('default');
 	    
 	    dump($values);
 	}
