@@ -40,4 +40,68 @@ class HlasenieUlovkuPresenter extends BasePresenter{
        
 	
     }
+    
+     protected function createComponentPridajUlovokForm() {
+        $form = new Form;
+	$form->setRenderer(new \App\Forms\Bs3FormRenderer());
+         
+        $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
+	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
+        $druhZveri = $this->database->table('druhZveri')->fetchPairs('id','nazov');
+        $sposobUlovenia = $this->database->table('sposobUlovenia')->fetchPairs('id','nazov');
+	
+        $form->addDatePicker('datumUlovenia','Dátum ulovenia')->setValue(date('d.m.Y'));
+        $form->addHidden('usersId', $this->user->getId());
+        $form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
+        $form->addSelect('lokalitaId','Lokalita',$lokalita);
+        $form->addSelect('druhZveriId','Druh zveri',$druhZveri);
+        $form->addText('pocetKs','Počet kusov');
+        $form->addSelect('sposobId','Druh zveri',$sposobUlovenia);
+        $form->addText('cisloZnacky','Číslo značky');
+        $form->addText('casUlovenia','Čas ulovenia');
+        
+	/**
+	
+	$form->addHidden('datumReal')->setValue(date('Y-m-d'));
+	
+	$form->addSelect('ucelId','Účel',$ucel);
+	$form->addSelect('lokalitaId','Lokalita',$lokalita);
+	$form->addSelect('prichodCas', 'čas príchodu do revíru')->setItems($intervals,FALSE);
+        $form->addSelect('odchodCas', 'čas odchodu z revíru')->setItems($intervals,FALSE);
+	
+	 $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
+	 $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
+         * 
+         */
+        
+         $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
+	 $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
+        return $form;
+        
+    }
+    
+    public function formSucceeded($form)
+	{
+	    $values =	$form->getForm()->getValues();
+	    $postId = $this->getParameter('id');
+	    /**if($postId){
+		$post = $this->database->table('navstevaReviru')->get($postId);
+		$post->update($values);
+	    }  else {
+		$post = $this->database->table('navstevaReviru')->insert($values);
+		
+	    }
+	    
+            $this->flashMessage('Údaje boli úspešne uložené','success');
+	    $this->redirect('default');
+             * 
+             */
+	    dump($values);
+	    
+	}
+    
+    public function formCancel() {
+	    $this->redirect('default');
+	    
+	}
 }
