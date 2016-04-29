@@ -5,8 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace App\Presenters;
 
+namespace App\Presenters;
 
 use App\Model;
 use Nette\Application\UI\Form;
@@ -16,12 +16,12 @@ use Nette\Forms\Container;
 use Nextras\Forms\Controls;
 use Nette\Utils\DateTime;
 /**
- * Description of hlasenieUlovkuPresenter
+ * Description of PocuteVystrelyPresenter
  *
- * @author Holub Ján
+ * @author Holub
  */
-class HlasenieUlovkuPresenter extends BasePresenter{
-     /** @var Nette\Database\Context */
+class PocuteVystrelyPresenter extends BasePresenter{
+  /** @var Nette\Database\Context */
     private $database;
 
     public function __construct(Nette\Database\Context $database)
@@ -34,31 +34,24 @@ class HlasenieUlovkuPresenter extends BasePresenter{
     public function renderDefault(){
 		
         
-	$this->template->vsetkyUlovky = $this->database->table('hlasenieUlovku')->where('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
+	$this->template->vystrely = $this->database->table('pocuteVystrely')->where('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
         
-        $this->template->dnesneUlovky = $this->database->table('hlasenieUlovku')->where('zdruzenieId = ? AND datumUlovenia = ?', $this->user->getIdentity()->zdruzenieId, date("Y:m:d"));
-       
-	
+        
     }
     
-     protected function createComponentPridajUlovokForm() {
+    protected function createComponentPridajVystrelForm() {
         $form = new Form;
 	$form->setRenderer(new \App\Forms\Bs3FormRenderer());
          
-        $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
-	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
-        $druhZveri = $this->database->table('druhZveri')->fetchPairs('id','nazov');
-        $sposobUlovenia = $this->database->table('sposobUlovenia')->fetchPairs('id','nazov');
+        $lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
+        
 	
-        $form->addDatePicker('datumUlovenia','Dátum ulovenia')->setValue(date('d.m.Y'));
+        $form->addDatePicker('datum','Dátum výstrelu')->setValue(date('d.m.Y'));
         $form->addHidden('usersId', $this->user->getId());
         $form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
         $form->addSelect('lokalitaId','Lokalita',$lokalita);
-        $form->addSelect('druhZveriId','Druh zveri',$druhZveri);
-        $form->addText('pocetKs','Počet kusov');
-        $form->addSelect('sposobId','Druh zveri',$sposobUlovenia);
-        $form->addText('cisloZnacky','Číslo značky');
-        $form->addText('casUlovenia','Čas ulovenia')->addRule(Form::PATTERN, 'Nesprávny formát času', '([0-1]?\d|2[0-3]):[0-5]?\d');    
+        $form->addText('pocetVystrelov','Počet výstrelov');
+        $form->addText('casVystrelu','Čas výstrelu');
         
 	     
          $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
@@ -72,10 +65,10 @@ class HlasenieUlovkuPresenter extends BasePresenter{
 	    $values =	$form->getForm()->getValues();
 	    $postId = $this->getParameter('id');
 	    if($postId){
-		$post = $this->database->table('hlasenieUlovku')->get($postId);
+		$post = $this->database->table('pocuteVystrely')->get($postId);
 		$post->update($values);
 	    }  else {
-		$post = $this->database->table('hlasenieUlovku')->insert($values);
+		$post = $this->database->table('pocuteVystrely')->insert($values);
 		
 	    }
 	    

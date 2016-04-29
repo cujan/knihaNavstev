@@ -1,0 +1,24 @@
+{* Latte template *}
+
+{block content}
+<a n:href="add" class="btn btn-primary btn-lg active" role="button">Pridaj výstrel</a>
+<h3>Počuté výstrely</h3>
+
+<table class="table table-striped">
+    <tr>
+	<th>Dátum výstrelu</th>
+	<th>Meno a priezvisko</th>
+	<th>Lokalita</th>
+	<th>Počet výstrelov</th>
+	<th>Čas ulovenia</th>
+    </tr>
+    {foreach $vystrely as $vystrel}
+    <tr>
+	<td>{$vystrel->datum|date:'%d.%m.%Y'}</td>
+	<td>{$vystrel->ref('users','usersId')->priezvisko}</td>
+	<td>{$vystrel->ref('lokalita','lokalitaId')->nazov}</td>
+	<td>{$vystrel->pocetVystrelov}</td>
+	<td>{$vystrel->casVystrelu|date:'%H:%I'}</td>
+    </tr>
+    {/foreach}
+</table>

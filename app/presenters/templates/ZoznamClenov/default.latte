@@ -3,7 +3,27 @@
 {block content}
 <h3>Zoznam členov združenia</h3>
 <table class="table table-striped">
+    
+        <tr>
+            <th>P.Č.</th>
+            <th>Priezvisko</th>
+            <th>Meno</th>
+            <th>Ulica</th>
+            <th>Mesto</th>
+            <th>PSČ</th>
+            <th>Telefón</th>
+            <th>Email</th>
+        </tr>
     {foreach $records as $record}
-        <tr><td>{$record -> priezvisko}</td></tr>    
+        <tr>
+            <td>{$iterator->getCounter()}.</td>
+            <td>{$record -> priezvisko}</td>
+            <td>{$record -> meno}</td>
+            <td>{$record -> ulica}</td>
+            <td>{$record -> mesto}</td>
+            <td>{$record -> psc}</td>
+            <td>{$record -> telefon}</td>
+            <td>{$record -> email}</td>
+        </tr>
     {/foreach}
 </table>
