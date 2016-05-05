@@ -1,5 +1,28 @@
 {* This is the welcome page, you can delete it *}
 
 {block content}
-uvod
+<h3>Dnes v revíry</h3>
+<table class="table table-striped">
+    <tr>
+	    <th>Dátum zápisu</th>
+	    <th>Meno a priezvisko</th>
+	    <th>Dátum návštevy</th>
+	    <th>Účel návštevy</th>
+	    <th>Lokalita</th>
+	    <th>Príchod</th>
+	    <th>Odchod</th>
+	</tr>
+    {foreach $dnesneNavstevy as $dnesnaNavsteva}
+	<tr>
+	    <td>{$dnesnaNavsteva->datumReal|date:'%d.%m.%Y'}</td>
+	    <td>{$dnesnaNavsteva->ref('users','usersId')->priezvisko}</td>
+	    <td>{$dnesnaNavsteva->datumNavsteva|date:'%d.%m.%Y'}</td>
+	    <td>{$dnesnaNavsteva->ref('ucelNavstevy','ucelId')->nazov}</td>
+	    <td>{$dnesnaNavsteva->ref('lokalita','lokalitaId')->nazov}</td>
+	    <td>{$dnesnaNavsteva->prichodCas|date:'%H:%I'}</td>
+	    <td>{$dnesnaNavsteva->odchodCas|date:'%H:%I'}</td>
+	</tr>
+    {/foreach}
+</table>
+    <a n:href="NavstevaReviru:add" class="btn btn-primary btn-sm active" role="button">Pridaj návštevu</a>
 {/block}
