@@ -8,22 +8,28 @@
             <th>P.Č.</th>
             <th>Priezvisko</th>
             <th>Meno</th>
+	    <th>Užívateľské meno</th>
             <th>Ulica</th>
             <th>Mesto</th>
             <th>PSČ</th>
             <th>Telefón</th>
             <th>Email</th>
+	    <th></th>
+	    
         </tr>
     {foreach $records as $record}
         <tr>
             <td>{$iterator->getCounter()}.</td>
             <td>{$record -> priezvisko}</td>
             <td>{$record -> meno}</td>
+	    <td>{$record -> username}</td>
             <td>{$record -> ulica}</td>
             <td>{$record -> mesto}</td>
             <td>{$record -> psc}</td>
             <td>{$record -> telefon}</td>
             <td>{$record -> email}</td>
+	    <td><a  n:href="edit $record->id">Edituj</a></td>
         </tr>
     {/foreach}
 </table>
+<a n:href="add" class="btn btn-primary btn-sm active" role="button">Pridaj člena</a>
