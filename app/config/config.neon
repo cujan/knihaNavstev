@@ -26,6 +26,10 @@ services:
 	- App\Model\UserManager
 	- App\Forms\FormFactory
 	- App\Forms\SignFormFactory
+	- App\Security\AuthorizatorFactory
+	- 
+	    class: Nette\Security\Permission
+	    factory: @App\Security\AuthorizatorFactory::create
 	router: App\RouterFactory::createRouter
 
 

@@ -3,11 +3,22 @@
 namespace App\Presenters;
 
 use Nette;
-use App\Forms\SignFormFactory;
+use App\Forms\SignFormFactory,
+    App\Security\AuthorizatorFactory;
 
-
+/**
+ * @resource Sign
+ */
 class SignPresenter extends BasePresenter
 {
+    
+    public function actionIn()
+    {
+        if ($this->user->isLoggedIn()) {
+            $this->redirect('Homepage:');
+        }
+    }
+    
 	/** @var SignFormFactory @inject */
 	public $factory;
 
@@ -28,7 +39,9 @@ class SignPresenter extends BasePresenter
 
 	public function actionOut()
 	{
-		$this->getUser()->logout(TRUE);
+		$this->user->logout();
+		$this->flashMessage('Boli ste odhlásený.');
+		$this->redirect('in');
 	}
 
 }

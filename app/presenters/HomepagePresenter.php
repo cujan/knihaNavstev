@@ -6,7 +6,9 @@ use Nette;
 use App\Model;
 
 
-
+/**
+ * @resource Homepage
+ */
 class HomepagePresenter extends BasePresenter
 {
 

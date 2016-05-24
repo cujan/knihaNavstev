@@ -21,6 +21,10 @@ use Nette\Utils\DateTime;
  *
  * @author Holub Ján
  */
+
+/**
+ * @resource NavstevaReviru
+ */
 class NavstevaReviruPresenter extends BasePresenter {
     //put your code here
      /** @var Nette\Database\Context */
