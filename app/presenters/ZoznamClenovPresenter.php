@@ -21,6 +21,10 @@ use Nette\Utils\DateTime;
  *
  * @author Holub
  */
+/**
+ * @resource ZoznamClenov
+ */
+
 class ZoznamClenovPresenter extends BasePresenter {
     
      /** @var Nette\Database\Context */
@@ -37,7 +41,9 @@ class ZoznamClenovPresenter extends BasePresenter {
        
     }
     
-    public function actionEdit($id){
+    
+
+        public function actionEdit($id){
 	$osoba = $this->database->table('users')->get($id);
 	if (!$osoba){
 	    $this->error('Osoba nebola nájdená!!!');

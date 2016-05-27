@@ -71,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" n:href="Homepage:default">Kniha návštev poľovného revíru</a>
+                <a class="navbar-brand" n:href="Homepage:default">Kniha návštev poľovného revíru: &nbsp;{$identity->meno}&nbsp;{$identity->priezvisko}&nbsp;-&nbsp;{$identity->roles[0]}</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -176,6 +176,25 @@
 			<li>
 			    <a n:href="Legislativa:default">Legislatíva</a>
 			</li>
+			<!--ciselniky-->
+			{if $user->isInRole('admin')}
+			<li>
+                            <a n:href="Homepage:default">Číselníky<span class="fa arrow"></span></a>
+			    <ul class="nav nav-second-level">
+				<li>
+				    <a n:href="Lokalita">Lokalita</a>
+				</li>
+				<li>
+				    <a n:href="UcelNavstevy">Účel návštevy</a>
+				</li>
+				
+				<li>
+				    <a n:href="SposobUlovenia">Spôsob ulovenia</a>
+				</li>
+                                
+			    </ul>
+                        </li>
+			{/if}
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

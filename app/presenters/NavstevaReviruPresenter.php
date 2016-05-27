@@ -47,8 +47,8 @@ class NavstevaReviruPresenter extends BasePresenter {
     }
     
     protected function createComponentPridajNavstevuForm() {
-        $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
-	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
+        $ucel = $this->database->table('ucelNavstevy')->where('zdruzenieId=?',$this->user->getIdentity()->zdruzenieId)->fetchPairs('id','nazov');
+	$lokalita = $this->database->table('lokalita')->where('zdruzenieId=?',$this->user->getIdentity()->zdruzenieId)->fetchPairs('id','nazov');
 	$casy = array('00:00','00:30');
 	
         

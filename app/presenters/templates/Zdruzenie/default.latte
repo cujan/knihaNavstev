@@ -24,10 +24,11 @@
 <tr>
     <td><b>Príslušnosť OPK</b></td><td>   {$post->prislusnostOpk}</td>
 </tr>
+{if $user->isInRole('admin') }
 <tr>
     <td><a n:href="Zdruzenie:edit $post->id" class="btn btn-default active">Edituj</a></td>
 </tr>
-
+{/if}
  {/foreach}
  
  </table>

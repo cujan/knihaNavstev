@@ -13,6 +13,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
   
     
+	
+    
 
     /**
      * Check authorization
@@ -43,6 +45,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
                 throw new Nette\Application\ForbiddenRequestException;
             }
         }
+	$this->template->identity = $this->user->getIdentity();
+	
     }
   
 } 

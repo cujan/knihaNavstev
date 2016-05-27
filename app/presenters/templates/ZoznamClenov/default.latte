@@ -28,8 +28,10 @@
             <td>{$record -> psc}</td>
             <td>{$record -> telefon}</td>
             <td>{$record -> email}</td>
-	    <td><a  n:href="edit $record->id">Edituj</a></td>
+	    {if $user->isInRole('admin') }<td><a  n:href="edit $record->id">Edituj</a></td>{/if}
         </tr>
     {/foreach}
 </table>
-<a n:href="add" class="btn btn-primary btn-sm active" role="button">Pridaj člena</a>
+    {if $user->isInRole('admin') }
+<a n:href="ZoznamClenov:add"  class="btn btn-primary btn-sm active" role="button">Pridaj člena</a>
+{/if}

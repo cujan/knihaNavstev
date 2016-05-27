@@ -24,5 +24,7 @@
 	</tr>
     {/foreach}
 </table>
+    {if $user->isAllowed('ZoznamClenov')}
     <a n:href="NavstevaReviru:add" class="btn btn-primary btn-sm active" role="button">Pridaj návštevu</a>
+    {/if}
 {/block}

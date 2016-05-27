@@ -13,6 +13,10 @@ use App\Model;
  *
  * @author Holub Ján
  */
+
+/**
+ * @resource PrehladLovu
+ */
 class PrehladLovuPresenter extends BasePresenter {
     //put your code here
 }

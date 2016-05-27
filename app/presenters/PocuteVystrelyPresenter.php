@@ -20,6 +20,9 @@ use Nette\Utils\DateTime;
  *
  * @author Holub
  */
+/**
+ * @resource PocuteVystrely
+ */
 class PocuteVystrelyPresenter extends BasePresenter{
   /** @var Nette\Database\Context */
     private $database;
@@ -43,7 +46,7 @@ class PocuteVystrelyPresenter extends BasePresenter{
         $form = new Form;
 	$form->setRenderer(new \App\Forms\Bs3FormRenderer());
          
-        $lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
+        $lokalita = $this->database->table('lokalita')->where('zdruzenieId=?',$this->user->getIdentity()->zdruzenieId)->fetchPairs('id','nazov');
         
 	
         $form->addDatePicker('datum','Dátum výstrelu')->setValue(date('d.m.Y'));

@@ -20,6 +20,9 @@ use Nette\Utils\DateTime;
  *
  * @author Holub Ján
  */
+/**
+ * @resource HlasenieUlovku
+ */
 class HlasenieUlovkuPresenter extends BasePresenter{
      /** @var Nette\Database\Context */
     private $database;
@@ -45,10 +48,10 @@ class HlasenieUlovkuPresenter extends BasePresenter{
         $form = new Form;
 	$form->setRenderer(new \App\Forms\Bs3FormRenderer());
          
-        $ucel = $this->database->table('ucelNavstevy')->fetchPairs('id','nazov');
-	$lokalita = $this->database->table('lokalita')->fetchPairs('id','nazov');
+        $ucel = $this->database->table('ucelNavstevy')->where('zdruzenieId=?',$this->user->getIdentity()->zdruzenieId)->fetchPairs('id','nazov');
+	$lokalita = $this->database->table('lokalita')->where('zdruzenieId=?',$this->user->getIdentity()->zdruzenieId)->fetchPairs('id','nazov');
         $druhZveri = $this->database->table('druhZveri')->fetchPairs('id','nazov');
-        $sposobUlovenia = $this->database->table('sposobUlovenia')->fetchPairs('id','nazov');
+        $sposobUlovenia = $this->database->table('sposobUlovenia')->where('zdruzenieId=?',$this->user->getIdentity()->zdruzenieId)->fetchPairs('id','nazov');
 	
         $form->addDatePicker('datumUlovenia','Dátum ulovenia')->setValue(date('d.m.Y'));
         $form->addHidden('usersId', $this->user->getId());

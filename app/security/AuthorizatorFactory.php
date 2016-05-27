@@ -23,8 +23,8 @@ class AuthorizatorFactory extends \Nette\Object {
 	 * Roles 1*
 	 */
 	$acl->addRole(self::ROLE_GUEST);
-	$acl->addRole(self::ROLE_ADMIN);
-	$acl->addRole(self::ROLE_USER);//2*
+	$acl->addRole(self::ROLE_USER, self::ROLE_GUEST);
+	$acl->addRole(self::ROLE_ADMIN);//2*
 	//$acl ->addRole(self::ROLE_USER,  self::ROLE_GUEST);
 	//$acl->addRole(self::ROLE_USER, self::ROLE_GUEST);
 	
@@ -33,16 +33,33 @@ class AuthorizatorFactory extends \Nette\Object {
          */
 	$acl->addResource('Homepage');
 	$acl->addResource('Sign');
+	$acl->addResource('NavstevaReviru');
+	$acl->addResource('HlasenieUlovku');
+	$acl->addResource('PocuteVystrely');
+	$acl->addResource('ZoznamClenov');
+	$acl->addResource('PrehladLovu');
+	
 	/**
          * Permissions 4*
          */
 	$acl->allow(self::ROLE_GUEST,'Sign');
-	$acl->allow(self::ROLE_USER, 'Homepage');
+	
+	//$acl->allow(self::ROLE_USER, 'Homepage');
+	//$acl->allow(self::ROLE_USER,'NavstevaReviru');
+	//$acl->allow(self::ROLE_USER,'HlasenieUlovku');
+	//$acl->allow(self::ROLE_USER,'PocuteVystrely');
+	//$acl->allow(self::ROLE_USER,'ZoznamClenov');
+	//$acl->deny(self::ROLE_USER, 'ZoznamClenov:add');
+	
 	/**$acl->allow(self::ROLE_GUEST, 'Homepage');
         $acl->allow(self::ROLE_GUEST, 'User');
 	*/
-	//$acl->allow(self::ROLE_GUEST,  Permission::ALL, Permission::ALL);
+	$acl->allow(self::ROLE_USER,  Permission::ALL, Permission::ALL);
 	$acl->allow(self::ROLE_ADMIN,  Permission::ALL, Permission::ALL);
+	
+	//$acl->deny(self::ROLE_USER, 'ZoznamClenov');
+	
+	
 	
 	return $acl;
     }
