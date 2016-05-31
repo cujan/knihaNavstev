@@ -34,7 +34,7 @@
 	<th>Meno a priezvisko</th>
 	<th>Lokalita</th>
 	<th>Druh zveri</th>
-	<th>Počet kusov</th>
+	<!--<th>Počet kusov</th>-->
 	<th>Spôsob ulovenia</th>
 	<th>Číslo značky</th>
 	<th>Čas ulovenia</th>
@@ -45,7 +45,7 @@
 	<td>{$ulovok->ref('users','usersId')->priezvisko}</td>
 	<td>{$ulovok->ref('lokalita','lokalitaId')->nazov}</td>
 	<td>{$ulovok->ref('druhZveri','druhZveriId')->nazov}</td>
-	<td>{$ulovok->pocetKs}</td>
+	<!--<td>{$ulovok->pocetKs}</td>-->
 	<td>{$ulovok->ref('sposobUlovenia','sposobId')->nazov}</td>
 	<td>{$ulovok->cisloZnacky}</td>
 	<td>{$ulovok->casUlovenia|date:'%H:%I'}</td>

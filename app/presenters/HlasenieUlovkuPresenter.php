@@ -58,7 +58,7 @@ class HlasenieUlovkuPresenter extends BasePresenter{
         $form->addHidden('zdruzenieId', $this->user->getIdentity()->zdruzenieId);
         $form->addSelect('lokalitaId','Lokalita',$lokalita);
         $form->addSelect('druhZveriId','Druh zveri',$druhZveri);
-        $form->addText('pocetKs','Počet kusov');
+       // $form->addText('pocetKs','Počet kusov');
         $form->addSelect('sposobId','Druh zveri',$sposobUlovenia);
         $form->addText('cisloZnacky','Číslo značky');
         $form->addText('casUlovenia','Čas ulovenia')->addRule(Form::PATTERN, 'Nesprávny formát času', '([0-1]?\d|2[0-3]):[0-5]?\d');    

@@ -160,6 +160,11 @@
 				<li>
 				    <a n:href="PrehladLovu:default">Prehľad lovu</a>
 				</li>
+				{if $user->isInRole('admin')}
+				<li>
+				    <a n:href="PlanLovu:default">Plán lovu</a>
+				</li>
+				{/if}
                                 <!--
 				<li>
 				    <a href="">Oznamy</a>

@@ -1,4 +1,112 @@
 {* Latte template *}
 
 {block content}
-prehlad lovu
+
+<table class="table table-striped">
+    <tr><th>Druh zveri</th><th>Plán</th><th>Skutočnosť</th></tr>
+{foreach $plany  as $plan}
+
+    {if $plan->j1 <> 0}
+    <tr><td>Jeleň I.</td><td>{$plan->j1}</td><td>{$j1}</td></tr>
+    {/if}
+    {if $plan->j2 <> 0}
+    <tr><td>Jeleň II.</td><td>{$plan->j2}</td><td>{$j2}</td></tr>
+    {/if}
+    {if $plan->j3 <> 0}
+    <tr><td>Jeleň III.</td><td>{$plan->j3}</td><td>{$j3}</td></tr>
+    {/if}
+    {if $plan->j4 <> 0}
+    <tr><td>Jeleň IV.</td><td>{$plan->j4}</td><td>{$j4}</td></tr>
+    {/if}
+    {if $plan->jelenica <> 0}
+    <tr><td>Jelenica</td><td>{$plan->jelenica}</td><td>{$jelenica}</td></tr>
+    {/if}
+    {if $plan->jelenca <> 0}
+    <tr><td>Jelenča</td><td>{$plan->jelenca}</td><td>{$jelenca}</td></tr>
+    {/if}
+    
+    
+    {if $plan->d1 <> 0}
+    <tr><td>Daniel I.</td><td>{$plan->d1}</td><td>{$d1}</td></tr>
+    {/if}
+    {if $plan->d2 <> 0}
+    <tr><td>Daniel II.</td><td>{$plan->d2}</td><td>{$d2}</td></tr>
+    {/if}
+    {if $plan->d3 <> 0}
+    <tr><td>Daniel III.</td><td>{$plan->d3}</td><td>{$d3}</td></tr>
+    {/if}
+    {if $plan->danielica <> 0}
+    <tr><td>Danielica</td><td>{$plan->danielica}</td><td>{$danielica}</td></tr>
+    {/if}
+    {if $plan->danielca <> 0}
+    <tr><td>Danielča</td><td>{$plan->danielca}</td><td>{$danielca}</td></tr>
+    {/if}
+    
+    
+    {if $plan->m1 <> 0}
+    <tr><td>Muflón I.</td><td>{$plan->m1}</td><td>{$m1}</td></tr>
+    {/if}
+    {if $plan->m2 <> 0}
+    <tr><td>Muflón II.</td><td>{$plan->m2}</td><td>{$m2}</td></tr>
+    {/if}
+    {if $plan->m3 <> 0}
+    <tr><td>Muflón III.</td><td>{$plan->m3}</td><td>{$m3}</td></tr>
+    {/if}
+    {if $plan->muflonica <> 0}
+    <tr><td>Muflónica</td><td>{$plan->muflonica}</td><td>{$muflonica}</td></tr>
+    {/if}
+    {if $plan->muflonca <> 0}
+    <tr><td>Muflónča</td><td>{$plan->muflonca}</td><td>{$muflonca}</td></tr>
+    {/if}
+    
+    
+    {if $plan->s1 <> 0}
+    <tr><td>Srnec I.</td><td>{$plan->s1}</td><td>{$s1}</td></tr>
+    {/if}
+    {if $plan->s2 <> 0}
+    <tr><td>Srnec II.</td><td>{$plan->s2}</td><td>{$s2}</td></tr>
+    {/if}
+    {if $plan->s3 <> 0}
+    <tr><td>Srnec III.</td><td>{$plan->s3}</td><td>{$s3}</td></tr>
+    {/if}
+    {if $plan->srna <> 0}
+    <tr><td>Srna</td><td>{$plan->srna}</td><td>{$srna}</td></tr>
+    {/if}
+    {if $plan->srnca <> 0}
+    <tr><td>Srnca</td><td>{$plan->srnca}</td><td>{$srnca}</td></tr>
+    {/if}
+    
+    {if $plan->diviak <> 0}
+    <tr><td>Dospelý diviak</td><td>{$plan->diviak}</td><td>{$dospelyDiviak}</td></tr>
+    {/if}
+    {if $plan->diviacica <> 0}
+    <tr><td>Dospelá diviačica</td><td>{$plan->diviacica}</td><td>{$dospelaDiviacica}</td></tr>
+    {/if}
+    {if $plan->lanstiak <> 0}
+    <tr><td>Lanštiak</td><td>{$plan->lanstiak}</td><td>{$lanstiak}</td></tr>
+    {/if}
+    {if $plan->diviaca <> 0}
+    <tr><td>Diviača</td><td>{$plan->diviaca}</td><td>{$diviaca}</td></tr>
+    {/if}
+    
+    {if $plan->kamzik <> 0}
+    <tr><td>Kamzík</td><td>{$plan->kamzik}</td><td>{$kamzik}</td></tr>
+    {/if}
+    {if $plan->kamzica <> 0}
+    <tr><td>Kamzica</td><td>{$plan->kamzica}</td><td>{$kamzica}</td></tr>
+    {/if}
+    
+    {if $plan->zajac <> 0}
+    <tr><td>Zajac</td><td>{$plan->zajac}</td><td>{$zajac}</td></tr>
+    {/if}
+    
+    {if $plan->bazant <> 0}
+    <tr><td>Bažant</td><td>{$plan->bazant}</td><td>{$bazant}</td></tr>
+    {/if}
+    
+    {if $plan->jariabokLesny <> 0}
+    <tr><td>Jariabok lesný</td><td>{$plan->jariabokLesny}</td><td>{$jariabok}</td></tr>
+    {/if}
+{/foreach}
+</table>
+

@@ -38,6 +38,7 @@ class AuthorizatorFactory extends \Nette\Object {
 	$acl->addResource('PocuteVystrely');
 	$acl->addResource('ZoznamClenov');
 	$acl->addResource('PrehladLovu');
+	$acl->addResource('PlanLovu');
 	
 	/**
          * Permissions 4*
@@ -57,7 +58,7 @@ class AuthorizatorFactory extends \Nette\Object {
 	$acl->allow(self::ROLE_USER,  Permission::ALL, Permission::ALL);
 	$acl->allow(self::ROLE_ADMIN,  Permission::ALL, Permission::ALL);
 	
-	//$acl->deny(self::ROLE_USER, 'ZoznamClenov');
+	$acl->deny(self::ROLE_USER, 'PlanLovu');
 	
 	
 	

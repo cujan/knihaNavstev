@@ -1,0 +1,17 @@
+{* Latte template *}
+
+{block content}
+<h3>Zoznam plánov</h3>
+<table class="table table-striped">
+    <tr>
+	<th colspan="2">Sezona</th>
+    </tr>
+    {foreach $plany as $plan}
+	<tr>
+	    <td>{$plan->sezona->nazov}</td>
+	    <td><a n:href="edit $plan->id" class="btn btn-primary btn-sm active" role="button">Edituj plán</a></td>
+	</tr>
+    {/foreach}
+</table>
+<a n:href="add" class="btn btn-primary btn-sm active" role="button">Pridaj plán</a>
+
