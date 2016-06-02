@@ -53,8 +53,52 @@ class SignPresenter extends BasePresenter
 	    $form->addText('priezvisko','Priezvisko');
 	    $form->addText('meno','Meno');
 	    $form->addText('email','Email');
-	    $fom->addHiden('zdruzenieId');
+	    $form->addHidden('zdruzenieId');
+	    $form->addText('ulica','Ulica');
+	    $form->addText('mesto','Mesto');
+	    $form->addText('psc','PSČ');
+	    $form->addText('nazov','Názov poľovného revíru');
+	    
+	     $form->addSubmit('send', 'Uložiť')->onClick[] =array($this,'formSucceeded') ;
+	     $form->addSubmit('cancel','Storno')->onClick[] = array($this,'formCancel');
+	    
 	    return $form;
+	}
+	
+	 public function formSucceeded($form)
+	{
+            
+	    $values =	$form->getForm()->getValues();
+	    $postId = $this->getParameter('id');
+	    
+            dump($values);
+           /**
+           if($values['password']==NULL){ 
+	   unset($values['password']);
+	   }else{
+	       $password= Nette\Security\Passwords::hash($values->password);
+	       $values['password']=$password;
+	   }
+            
+	   if($postId){
+		
+		$post = $this->database->table('users')->get($postId);
+		$post->update($values);
+	    }  else {
+		$post = $this->database->table('users')->insert($values);
+		
+	    }
+	    
+            $this->flashMessage('Údaje boli úspešne uložené','success');
+	    $this->redirect('default');
+           */
+            
+            
+	}
+    
+    public function formCancel() {
+	    $this->redirect('in');
+	    
 	}
 
 }
