@@ -5,6 +5,7 @@ namespace App\Presenters;
 use Nette;
 use App\Forms\SignFormFactory,
     App\Security\AuthorizatorFactory;
+use Nette\Application\UI\Form;
 
 /**
  * @resource Sign
@@ -42,6 +43,18 @@ class SignPresenter extends BasePresenter
 		$this->user->logout();
 		$this->flashMessage('Boli ste odhlásený.');
 		$this->redirect('in');
+	}
+	
+	public function createComponentRegistrationForm(){
+	    $form = new Form;
+	    $form->addText('username','Užívateľské meno');
+	    $form->addPassword('password', 'Heslo');
+	    $form->addHidden('roleId',1);
+	    $form->addText('priezvisko','Priezvisko');
+	    $form->addText('meno','Meno');
+	    $form->addText('email','Email');
+	    $fom->addHiden('zdruzenieId');
+	    return $form;
 	}
 
 }
